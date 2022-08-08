@@ -1,0 +1,45 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "xyz.doubleedgetech"
+    },
+    "jhipsterVersion": "6.10.5",
+    "applicationType": "monolith",
+    "baseName": "mhipsteropenid",
+    "packageName": "xyz.doubleedgetech",
+    "packageFolder": "xyz/doubleedgetech",
+    "serverPort": "8080",
+    "authenticationType": "oauth2",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "postgresql",
+    "messageBroker": false,
+    "buildTool": "gradle",
+    "jwtSecretKey": "OTI5NmU3NzczMTdmODFmZWZmZTZjZWViZTFkZDViODdiNjBhYjM5YWZmY2YyY2FhZGEwNTVhYTFhYTRkMmRlNjE0MTIyZTMzYmY2MTAwYjJhOGNhNzZiNzEzYjMzNWUwMjQ2YWZkMmY5YjNlNmZkM2Y5OTM1ODllYWJjZWFlMmU=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "skipClient": true,
+    "creationTimestamp": 1659943043599,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [
+      {
+        "name": "generator-jhipster-micronaut",
+        "version": "1.0.2"
+      }
+    ],
+    "enableTranslation": false,
+    "blueprints": [
+      {
+        "name": "generator-jhipster-micronaut",
+        "version": "1.0.2"
+      }
+    ]
+  }
+}
