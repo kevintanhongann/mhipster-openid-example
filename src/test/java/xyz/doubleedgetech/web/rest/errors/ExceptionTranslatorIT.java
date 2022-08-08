@@ -1,5 +1,6 @@
 package xyz.doubleedgetech.web.rest.errors;
 
+import io.micronaut.rxjava3.http.client.Rx3HttpClient;
 import xyz.doubleedgetech.MhipsteropenidApp;
 import xyz.doubleedgetech.web.rest.errors.handlers.ProblemHandler;
 import io.micronaut.core.type.Argument;
@@ -7,14 +8,13 @@ import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MediaType;
-import io.micronaut.http.client.RxHttpClient;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import org.junit.jupiter.api.Test;
 import org.zalando.problem.Problem;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import java.util.List;
 import java.util.Map;
@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ExceptionTranslatorIT {
 
     @Inject @Client("/")
-    RxHttpClient client;
+    Rx3HttpClient client;
 
     @Test
     public void testMethodArgumentNotValid() throws Exception {

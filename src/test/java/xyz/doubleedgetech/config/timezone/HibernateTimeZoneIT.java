@@ -11,7 +11,7 @@ import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import javax.transaction.Transactional;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -15,7 +15,7 @@ import org.ehcache.jsr107.EhcacheCachingProvider;
 import org.hibernate.cache.jcache.ConfigSettings;
 
 import javax.cache.CacheManager;
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 @Factory
 public class CacheConfiguration {

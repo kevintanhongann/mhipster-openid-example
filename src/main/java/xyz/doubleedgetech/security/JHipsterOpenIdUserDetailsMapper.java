@@ -1,5 +1,8 @@
 package xyz.doubleedgetech.security;
 
+import io.micronaut.security.authentication.Authentication;
+import io.micronaut.security.oauth2.endpoint.token.response.DefaultOpenIdAuthenticationMapper;
+import io.micronaut.security.oauth2.endpoint.token.response.OpenIdAuthenticationMapper;
 import xyz.doubleedgetech.domain.Authority;
 import xyz.doubleedgetech.domain.User;
 import xyz.doubleedgetech.service.UserService;
@@ -8,17 +11,15 @@ import com.nimbusds.jwt.JWT;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.JWTParser;
 import io.micronaut.context.annotation.Requires;
-import io.micronaut.security.authentication.UserDetails;
+//import io.micronaut.security.authentication.UserDetails;
 import io.micronaut.security.config.AuthenticationModeConfiguration;
 import io.micronaut.security.oauth2.configuration.OpenIdAdditionalClaimsConfiguration;
-import io.micronaut.security.oauth2.endpoint.token.response.DefaultOpenIdUserDetailsMapper;
 import io.micronaut.security.oauth2.endpoint.token.response.OpenIdClaims;
 import io.micronaut.security.oauth2.endpoint.token.response.OpenIdTokenResponse;
-import io.micronaut.security.oauth2.endpoint.token.response.OpenIdUserDetailsMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import javax.inject.Named;
-import javax.inject.Singleton;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import java.text.ParseException;
 import java.util.List;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
 @Singleton
 @Requires(classes = JWTParser.class)
 @Named("oidc")
-public class JHipsterOpenIdUserDetailsMapper extends DefaultOpenIdUserDetailsMapper {
+public class JHipsterOpenIdUserDetailsMapper extends DefaultOpenIdAuthenticationMapper {
     private static final Logger LOG = LoggerFactory.getLogger(JHipsterOpenIdUserDetailsMapper.class);
     public static final String GROUPS_CLAIM = "groups";
     public static final String ROLES_CLAIM = "roles";
@@ -51,7 +52,7 @@ public class JHipsterOpenIdUserDetailsMapper extends DefaultOpenIdUserDetailsMap
     }
 
     private void syncWithIdp(JWT parsedJwt, List<String> roles) {
-        
+
         try {
             User user = new User();
             user.setId(parsedJwt.getJWTClaimsSet().getSubject());
@@ -76,7 +77,7 @@ public class JHipsterOpenIdUserDetailsMapper extends DefaultOpenIdUserDetailsMap
     * @param providerName The OpenID provider name
     * @param tokenResponse The token response
     * @param openIdClaims The OpenID claims
-    * @return The roles to set in the {@link UserDetails}
+    * @return The roles to set in the {@link Authentication static instances}
     */
     @Override
     protected List<String> getRoles(String providerName, OpenIdTokenResponse tokenResponse, OpenIdClaims openIdClaims) {
@@ -107,7 +108,7 @@ public class JHipsterOpenIdUserDetailsMapper extends DefaultOpenIdUserDetailsMap
     protected Map<String, Object> buildAttributes(String providerName, OpenIdTokenResponse tokenResponse, OpenIdClaims openIdClaims) {
         Map<String, Object> claims = super.buildAttributes(providerName, tokenResponse, openIdClaims);
 
-        claims.put(OpenIdUserDetailsMapper.OPENID_TOKEN_KEY, tokenResponse.getIdToken());
+        claims.put(OpenIdAuthenticationMapper.OPENID_TOKEN_KEY, tokenResponse.getIdToken());
 
         return claims;
     }
@@ -136,7 +137,7 @@ public class JHipsterOpenIdUserDetailsMapper extends DefaultOpenIdUserDetailsMap
     * @param providerName The OpenID provider name
     * @param tokenResponse The token response
     * @param openIdClaims The OpenID claims
-    * @return The username to set in the {@link UserDetails}
+    * @return The username to set in the {@link Authentication static instances}
     */
     protected String getUsername(String providerName, OpenIdTokenResponse tokenResponse, OpenIdClaims openIdClaims) {
         return openIdClaims.getPreferredUsername();

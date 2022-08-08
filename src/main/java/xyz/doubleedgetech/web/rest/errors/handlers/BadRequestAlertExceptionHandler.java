@@ -5,7 +5,7 @@ import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.server.exceptions.ExceptionHandler;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 @Singleton
 public class BadRequestAlertExceptionHandler extends ProblemHandler implements ExceptionHandler<BadRequestAlertException, HttpResponse> {

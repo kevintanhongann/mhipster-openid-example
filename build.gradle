@@ -212,7 +212,7 @@ dependencies {
     // to use a SNAPSHOT release instead of a stable release
     implementation (group: "io.github.jhipster", name: "jhipster-framework") {
         exclude group: "org.springframework", module: "spring-context-support"
-        
+
         exclude group: "org.springframework.boot", module: "spring-boot-autoconfigure"
         exclude group: "org.springframework.boot", module: "spring-boot-starter-aop"
         exclude group: "org.springframework.boot", module: "spring-boot-starter-web"
@@ -314,6 +314,9 @@ dependencies {
     testRuntimeOnly "com.tngtech.archunit:archunit-junit5-engine:${archunit_junit5_version}"
     testImplementation "com.h2database:h2"
     liquibaseRuntime "com.h2database:h2"
+
+    implementation("io.micronaut.rxjava3:micronaut-rxjava3:2.3.0")
+    implementation("io.micronaut.rxjava3:micronaut-rxjava3-http-client:2.3.0")
     //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
 }
 

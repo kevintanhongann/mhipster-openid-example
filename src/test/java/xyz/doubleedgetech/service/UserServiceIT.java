@@ -14,7 +14,7 @@ import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.*;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
