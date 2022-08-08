@@ -32,7 +32,9 @@ micronaut:
     enabled: true
     oauth2:
       enabled: false
-
+  server:
+    host: localhost
+    port: 8080
 jhipster:
   clientApp:
     name: 'mhipsteropenidApp'

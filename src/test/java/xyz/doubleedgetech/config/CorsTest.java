@@ -7,22 +7,13 @@ import io.micronaut.http.HttpResponse;
 import io.micronaut.http.client.BlockingHttpClient;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.runtime.server.EmbeddedServer;
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
-import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@MicronautTest
 public class CorsTest {
-
-    @Inject
-    EmbeddedServer server;
-
-    @Inject
-    BlockingHttpClient blockingHttpClient;
 
     @Test
     public void testCorsFilterOnApiPath() {
@@ -33,11 +24,12 @@ public class CorsTest {
         props.put("micronaut.server.cors.configurations.default.max-age", 1800L);
         props.put("micronaut.server.cors.configurations.default.allow-credentials", true);
 
-//        EmbeddedServer server = ApplicationContext.run(EmbeddedServer.class, props);
-//        ApplicationContext ctx = server.getApplicationContext();
+        EmbeddedServer server = ApplicationContext.run(EmbeddedServer.class, props);
+        ApplicationContext ctx = server.getApplicationContext();
 
+        BlockingHttpClient client = ctx.createBean(HttpClient.class, server.getURL()).toBlocking();
 
-        HttpResponse<?> response = blockingHttpClient.exchange(
+        HttpResponse<?> response = client.exchange(
             HttpRequest.OPTIONS("/api/test-cors")
                 .header(HttpHeaders.ORIGIN, "other.domain.com")
                 .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "POST"));
@@ -49,7 +41,7 @@ public class CorsTest {
         assertThat(response.header(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS)).isEqualTo("true");
         assertThat(response.header(HttpHeaders.ACCESS_CONTROL_MAX_AGE)).isEqualTo("1800");
 
-//        ctx.close();
+        ctx.close();
     }
 
     @Test
@@ -61,11 +53,12 @@ public class CorsTest {
         props.put("micronaut.server.cors.configurations.default.max-age", 1800L);
         props.put("micronaut.server.cors.configurations.default.allow-credentials", true);
 
-//        EmbeddedServer server = ApplicationContext.run(EmbeddedServer.class, props);
-//        ApplicationContext ctx = server.getApplicationContext();
+        EmbeddedServer server = ApplicationContext.run(EmbeddedServer.class, props);
+        ApplicationContext ctx = server.getApplicationContext();
 
+        BlockingHttpClient client = ctx.createBean(HttpClient.class, server.getURL()).toBlocking();
 
-        HttpResponse<?> response = blockingHttpClient.exchange(
+        HttpResponse<?> response = client.exchange(
             HttpRequest.GET("/api/test-cors")
                 .header(HttpHeaders.ORIGIN, "other.domain.com")
                 .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "POST"));
@@ -73,7 +66,7 @@ public class CorsTest {
         assertThat(response.getStatus().getCode()).isEqualTo(200);
         assertThat(response.getHeaders().contains(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN)).isFalse();
 
-//        ctx.close();
+        ctx.close();
     }
 
 }
